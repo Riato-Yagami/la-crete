@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bj77m061s8jb0"]
+
+[ext_resource type="Texture2D" uid="uid://ct3avhjpfanwn" path="res://resources/sprites/menu/menu-vanilla.png" id="2_6581t"]
+[ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="2_bbdse"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_h6c3x"]
+viewport_path = NodePath("PixelPerfectLayer/SubViewport")
+
+[node name="StartScreen" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="." groups=["PP"]]
+texture = ExtResource("2_6581t")
+
+[node name="PixelPerfectLayer" parent="." node_paths=PackedStringArray("main_camera") instance=ExtResource("2_bbdse")]
+main_camera = NodePath("../Camera2D")
+
+[node name="ViewportTexture" parent="PixelPerfectLayer" index="0"]
+texture = SubResource("ViewportTexture_h6c3x")
+
+[node name="PixelPerfectCamera" parent="PixelPerfectLayer/SubViewport" index="0"]
+offset = Vector2(0, 0)
+
+[editable path="PixelPerfectLayer"]

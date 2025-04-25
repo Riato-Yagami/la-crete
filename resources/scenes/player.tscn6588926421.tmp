@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://bms3ha4d130k1"]
+
+[ext_resource type="Script" uid="uid://bvlpgcau3o3vm" path="res://resources/scripts/player.gd" id="1_4bag7"]
+[ext_resource type="SpriteFrames" uid="uid://8cnglwj6i4l3" path="res://resources/sprite-frames/player.tres" id="2_wwmvc"]
+[ext_resource type="Script" uid="uid://e04g535n2e5s" path="res://resources/scripts/state-machine/state-machine.gd" id="3_o7bv2"]
+[ext_resource type="Script" uid="uid://b5ncheq22k5od" path="res://resources/scripts/player/states/walk.gd" id="4_ddmc6"]
+[ext_resource type="Script" uid="uid://b417xxnmjfuh2" path="res://resources/scripts/player/states/idle.gd" id="5_3avij"]
+[ext_resource type="Script" uid="uid://cndlb3qkh4xcw" path="res://resources/scripts/player/states/climb.gd" id="6_w3pfj"]
+[ext_resource type="Script" uid="uid://dy8jwmhlcgkds" path="res://resources/scripts/player/states/crete-walk.gd" id="7_3avij"]
+[ext_resource type="Texture2D" uid="uid://btff8xdpt6p5f" path="res://resources/sprites/player/balance/balance-bar.png" id="7_wwmvc"]
+[ext_resource type="Script" uid="uid://bfcqflake1p7c" path="res://resources/scripts/player/balance-bar.gd" id="8_ddmc6"]
+[ext_resource type="Texture2D" uid="uid://cvnxije5viys7" path="res://resources/sprites/player/balance/cursor.png" id="8_o7bv2"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("balance_bar") groups=["PP"]]
+z_index = 1
+script = ExtResource("1_4bag7")
+walk_line_y_offset = 4.0
+balance_bar = NodePath("BalanceBar")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_wwmvc")
+animation = &"idle"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_o7bv2")
+starting_state = NodePath("Idle")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle", "climb", "creteWalk")]
+script = ExtResource("4_ddmc6")
+idle = NodePath("../Idle")
+climb = NodePath("../Climb")
+creteWalk = NodePath("../CreteWalk")
+walk_back_speed_modifier = 0.25
+animation_name = "walk"
+move_speed = 50.0
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk")]
+script = ExtResource("5_3avij")
+walk = NodePath("../Walk")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="Climb" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk")]
+script = ExtResource("6_w3pfj")
+climb_angle = 50.0
+walk = NodePath("../Walk")
+animation_name = "climb"
+move_speed = 50.0
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="CreteWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk", "idle", "climb", "creteWalk")]
+script = ExtResource("7_3avij")
+walk = NodePath("../Walk")
+idle = NodePath("../Idle")
+climb = NodePath("../Climb")
+creteWalk = NodePath(".")
+move_speed = 30.0
+
+[node name="BalanceBar" type="Sprite2D" parent="." node_paths=PackedStringArray("cursor")]
+visible = false
+position = Vector2(0, -15)
+texture = ExtResource("7_wwmvc")
+script = ExtResource("8_ddmc6")
+rebalance_force = null
+cursor = NodePath("Cursor")
+length = null
+
+[node name="Cursor" type="Sprite2D" parent="BalanceBar"]
+position = Vector2(0, 4)
+texture = ExtResource("8_o7bv2")

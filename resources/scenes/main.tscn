@@ -1,0 +1,64 @@
+[gd_scene load_steps=13 format=3 uid="uid://c8f3do4ffwfxr"]
+
+[ext_resource type="PackedScene" uid="uid://c035q8gax3t0b" path="res://resources/scenes/screens/game_screen.tscn" id="1_s6ncf"]
+[ext_resource type="Script" uid="uid://i2u83wfrxy03" path="res://resources/scripts/screens/start.gd" id="2_6ajms"]
+[ext_resource type="PackedScene" uid="uid://bj77m061s8jb0" path="res://resources/scenes/screens/start_screen.tscn" id="2_epx6m"]
+[ext_resource type="Script" uid="uid://b8hed2mkjwvh2" path="res://resources/scripts/screens/game.gd" id="2_r1egt"]
+[ext_resource type="Script" uid="uid://bmdmnfor61a76" path="res://resources/scripts/screens/screen-machine.gd" id="3_6ajms"]
+[ext_resource type="Script" uid="uid://dlnuutrodpt36" path="res://resources/scripts/screens/game-over.gd" id="6_wua2b"]
+[ext_resource type="PackedScene" uid="uid://cdxba82vxpsav" path="res://resources/scenes/screens/game_over_screen.tscn" id="7_xl2mk"]
+[ext_resource type="Script" uid="uid://b8mrt05lp6qq2" path="res://resources/scenes/victory.gd" id="8_wvwmv"]
+[ext_resource type="PackedScene" uid="uid://d1elc385ikt8j" path="res://resources/scenes/screens/victory_screen.tscn" id="9_r0tc7"]
+[ext_resource type="SpriteFrames" uid="uid://tbh4d5ss7u3h" path="res://resources/sprite-frames/transition.tres" id="10_bf3j7"]
+[ext_resource type="Script" uid="uid://dpkicfh2bi63f" path="res://resources/scripts/screens/transition.gd" id="10_udu54"]
+[ext_resource type="AudioStream" uid="uid://laam71dkd0cj" path="res://audio/musics/theme.wav" id="12_fnme6"]
+
+[node name="Main" type="Node"]
+
+[node name="ScreenMachine" type="Node" parent="." node_paths=PackedStringArray("transition", "starting_state")]
+script = ExtResource("3_6ajms")
+transition = NodePath("Transition")
+starting_state = NodePath("Start")
+
+[node name="Game" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game_over", "victory")]
+script = ExtResource("2_r1egt")
+game_over = NodePath("../GameOver")
+victory = NodePath("../Victory")
+screen_ressource = ExtResource("1_s6ncf")
+
+[node name="Start" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game")]
+script = ExtResource("2_6ajms")
+game = NodePath("../Game")
+screen_ressource = ExtResource("2_epx6m")
+metadata/_custom_type_script = "uid://i2u83wfrxy03"
+
+[node name="GameOver" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game")]
+script = ExtResource("6_wua2b")
+game = NodePath("../Game")
+screen_ressource = ExtResource("7_xl2mk")
+
+[node name="Victory" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game")]
+script = ExtResource("8_wvwmv")
+game = NodePath("../Game")
+screen_ressource = ExtResource("9_r0tc7")
+
+[node name="Transition" type="Parallax2D" parent="ScreenMachine" node_paths=PackedStringArray("animation") groups=["PP"]]
+visible = false
+z_index = 100
+scroll_scale = Vector2(0, 0)
+script = ExtResource("10_udu54")
+animation = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ScreenMachine/Transition"]
+sprite_frames = ExtResource("10_bf3j7")
+animation = &"open"
+centered = false
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Sounds" type="Node" parent="Audio"]
+
+[node name="Music" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_fnme6")
+
+[connection signal="animation_finished" from="ScreenMachine/Transition/AnimatedSprite2D" to="ScreenMachine" method="_on_animated_sprite_2d_animation_finished"]

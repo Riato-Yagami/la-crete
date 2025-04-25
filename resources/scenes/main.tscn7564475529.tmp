@@ -1,0 +1,109 @@
+[gd_scene load_steps=14 format=3 uid="uid://c8f3do4ffwfxr"]
+
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line.gd" id="1_s6ncf"]
+[ext_resource type="Script" uid="uid://c3kjrm7s70h1e" path="res://resources/scripts/follow-camera.gd" id="2_6ajms"]
+[ext_resource type="Script" uid="uid://bvlpgcau3o3vm" path="res://resources/scripts/player.gd" id="2_epx6m"]
+[ext_resource type="Script" uid="uid://c6lu1hudvghfc" path="res://resources/scripts/ridge/ridge-fill.gd" id="4_fnme6"]
+[ext_resource type="Script" uid="uid://coldiioeqr588" path="res://resources/scripts/pixel-perfect-layer.gd" id="4_r1egt"]
+[ext_resource type="SpriteFrames" uid="uid://8cnglwj6i4l3" path="res://resources/sprite-frames/player.tres" id="4_rdsm1"]
+[ext_resource type="Script" uid="uid://e04g535n2e5s" path="res://resources/scripts/state-machine/state-machine.gd" id="5_wua2b"]
+[ext_resource type="Script" uid="uid://b5ncheq22k5od" path="res://resources/scripts/player/states/walk.gd" id="6_xl2mk"]
+[ext_resource type="Script" uid="uid://b417xxnmjfuh2" path="res://resources/scripts/player/states/idle.gd" id="7_wvwmv"]
+[ext_resource type="Script" uid="uid://cndlb3qkh4xcw" path="res://resources/scripts/player/states/climb.gd" id="8_r0tc7"]
+[ext_resource type="Texture2D" uid="uid://gtc00q15k6f3" path="res://resources/sprites/mountains/mountain-01.png" id="9_21dmo"]
+[ext_resource type="Texture2D" uid="uid://toiaif141uil" path="res://resources/sprites/mountains/mountain-04.png" id="12_7v30n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rdsm1"]
+viewport_path = NodePath("PixelPerfectLayer/SubViewport")
+
+[node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Game" groups=["PP"]]
+
+[node name="Layer1" type="Parallax2D" parent="Game/ParallaxBackground"]
+scroll_scale = Vector2(1, 1.5)
+
+[node name="Mountain-04" type="Sprite2D" parent="Game/ParallaxBackground/Layer1"]
+scale = Vector2(2, 2)
+texture = ExtResource("12_7v30n")
+
+[node name="Layer2" type="Parallax2D" parent="Game/ParallaxBackground"]
+
+[node name="Mountain-01" type="Sprite2D" parent="Game/ParallaxBackground/Layer2"]
+position = Vector2(-196, -95)
+texture = ExtResource("9_21dmo")
+
+[node name="RidgeLine" type="Line2D" parent="Game" groups=["PP"]]
+width = 3.0
+default_color = Color(0.752941, 0.776471, 0.92549, 1)
+script = ExtResource("1_s6ncf")
+
+[node name="RidgeFill" type="Node2D" parent="Game/RidgeLine"]
+script = ExtResource("4_fnme6")
+
+[node name="FollowCamera" type="Camera2D" parent="Game" node_paths=PackedStringArray("target")]
+position = Vector2(-239, -93)
+position_smoothing_enabled = true
+script = ExtResource("2_6ajms")
+target = NodePath("../Player")
+
+[node name="Player" type="Node2D" parent="Game" node_paths=PackedStringArray("walk_line") groups=["PP"]]
+position = Vector2(-239, -93)
+script = ExtResource("2_epx6m")
+walk_line = NodePath("../RidgeLine")
+walk_line_y_offset = -4.0
+
+[node name="Animation" type="AnimatedSprite2D" parent="Game/Player"]
+sprite_frames = ExtResource("4_rdsm1")
+animation = &"idle"
+
+[node name="StateMachine" type="Node" parent="Game/Player" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("5_wua2b")
+starting_state = NodePath("Idle")
+
+[node name="Walk" type="Node" parent="Game/Player/StateMachine" node_paths=PackedStringArray("idle", "climb")]
+script = ExtResource("6_xl2mk")
+idle = NodePath("../Idle")
+climb = NodePath("../Climb")
+walk_back_speed_modifier = 0.25
+animation_name = "walk"
+move_speed = 50.0
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="Idle" type="Node" parent="Game/Player/StateMachine" node_paths=PackedStringArray("walk")]
+script = ExtResource("7_wvwmv")
+walk = NodePath("../Walk")
+animation_name = "idle"
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="Climb" type="Node" parent="Game/Player/StateMachine" node_paths=PackedStringArray("walk")]
+script = ExtResource("8_r0tc7")
+climb_angle = 50.0
+walk = NodePath("../Walk")
+animation_name = "climb"
+move_speed = 50.0
+metadata/_custom_type_script = "uid://dsbxnptk4n82v"
+
+[node name="PixelPerfectLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main_camera", "pixel_perfect_camera")]
+layer = 5
+script = ExtResource("4_r1egt")
+main_camera = NodePath("../Game/FollowCamera")
+pixel_perfect_camera = NodePath("SubViewport/PixelPerfectCamera")
+
+[node name="SubViewport" type="SubViewport" parent="PixelPerfectLayer"]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 128)
+
+[node name="PixelPerfectCamera" type="Camera2D" parent="PixelPerfectLayer/SubViewport"]
+position_smoothing_enabled = true
+
+[node name="ViewportTexture" type="TextureRect" parent="PixelPerfectLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_rdsm1")

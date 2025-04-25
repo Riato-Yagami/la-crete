@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8f3do4ffwfxr"]
+
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line.gd" id="1_s6ncf"]
+[ext_resource type="Script" uid="uid://c3kjrm7s70h1e" path="res://resources/scenes/follow-camera.gd" id="2_6ajms"]
+[ext_resource type="Script" uid="uid://bvlpgcau3o3vm" path="res://resources/scenes/player.gd" id="2_epx6m"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s6ncf"]
+size = Vector2(10, 10)
+
+[node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="WalkLine" type="Line2D" parent="Game"]
+script = ExtResource("1_s6ncf")
+
+[node name="FollowCamera" type="Camera2D" parent="Game" node_paths=PackedStringArray("target")]
+position = Vector2(-239, -93)
+position_smoothing_enabled = true
+script = ExtResource("2_6ajms")
+target = NodePath("../Player")
+
+[node name="Player" type="Sprite2D" parent="Game" node_paths=PackedStringArray("walk_line")]
+position = Vector2(-239, -93)
+texture = SubResource("PlaceholderTexture2D_s6ncf")
+script = ExtResource("2_epx6m")
+walk_line = NodePath("../WalkLine")

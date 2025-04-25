@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdxba82vxpsav"]
+
+[ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="1_e3llb"]
+[ext_resource type="Texture2D" uid="uid://d3hj8uk3rqpub" path="res://resources/sprites/menu/death-screen-vanilla.png" id="1_es1jm"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_es1jm"]
+viewport_path = NodePath("PixelPerfectLayer/SubViewport")
+
+[node name="GameOverScreen" type="Node"]
+
+[node name="Background" type="Sprite2D" parent="." groups=["PP"]]
+texture = ExtResource("1_es1jm")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PixelPerfectLayer" parent="." node_paths=PackedStringArray("main_camera") instance=ExtResource("1_e3llb")]
+main_camera = NodePath("../Camera2D")
+
+[node name="ViewportTexture" parent="PixelPerfectLayer" index="0"]
+texture = SubResource("ViewportTexture_es1jm")
+
+[node name="PixelPerfectCamera" parent="PixelPerfectLayer/SubViewport" index="0"]
+offset = Vector2(0, 0)
+
+[editable path="PixelPerfectLayer"]

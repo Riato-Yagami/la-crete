@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu5dcyfe3pcei"]
+
+[ext_resource type="Script" uid="uid://coldiioeqr588" path="res://resources/scripts/pixel-perfect-layer.gd" id="1_sl6ii"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v5w8g"]
+viewport_path = NodePath("SubViewport")
+
+[node name="PixelPerfectLayer" type="CanvasLayer" node_paths=PackedStringArray("pixel_perfect_camera", "sub_viewport")]
+script = ExtResource("1_sl6ii")
+pixel_perfect_camera = NodePath("SubViewport/PixelPerfectCamera")
+sub_viewport = NodePath("SubViewport")
+metadata/_custom_type_script = "uid://coldiioeqr588"
+
+[node name="ViewportTexture" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_v5w8g")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 128)
+
+[node name="PixelPerfectCamera" type="Camera2D" parent="SubViewport"]
+offset = Vector2(30, -20)
+position_smoothing_enabled = true

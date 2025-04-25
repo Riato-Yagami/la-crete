@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8f3do4ffwfxr"]
+
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line.gd" id="1_s6ncf"]
+[ext_resource type="Script" uid="uid://bvlpgcau3o3vm" path="res://resources/scenes/player.gd" id="2_epx6m"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_s6ncf"]
+size = Vector2(10, 10)
+
+[node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="WalkLine" type="Line2D" parent="Game"]
+script = ExtResource("1_s6ncf")
+
+[node name="Player" type="Sprite2D" parent="Game"]
+position = Vector2(-542, -1)
+texture = SubResource("PlaceholderTexture2D_s6ncf")
+script = ExtResource("2_epx6m")
+
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+position = Vector2(542, 1)

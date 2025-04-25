@@ -1,0 +1,3 @@
+State Machine : https://www.youtube.com/watch?v=oqFbZoA2lnU&ab_channel=TheShaggyDev
+Pixel Pefect Camera : https://www.youtube.com/watch?v=KAaZYsulXrA&ab_channel=tissueinu
+Parallax Background : https://www.youtube.com/watch?v=ge1QiDmwS4k&ab_channel=MichaelGames

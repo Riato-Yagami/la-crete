@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8f3do4ffwfxr"]
+
+[ext_resource type="PackedScene" uid="uid://18klr6wof0hv" path="res://resources/scenes/background.tscn" id="1_21dmo"]
+[ext_resource type="Script" uid="uid://c3kjrm7s70h1e" path="res://resources/scripts/follow-camera.gd" id="2_6ajms"]
+[ext_resource type="PackedScene" uid="uid://cs3erh1dkft5e" path="res://resources/scenes/walk_line.tscn" id="2_xl2mk"]
+[ext_resource type="PackedScene" uid="uid://y2jrbod3f8o0" path="res://resources/scenes/spawn.tscn" id="5_wua2b"]
+[ext_resource type="PackedScene" uid="uid://bms3ha4d130k1" path="res://resources/scenes/player.tscn" id="5_wvwmv"]
+[ext_resource type="Script" uid="uid://coldiioeqr588" path="res://resources/scripts/pixel-perfect-layer.gd" id="6_wua2b"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xl2mk"]
+viewport_path = NodePath("PixelPerfectLayer/SubViewport")
+
+[node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+
+[node name="Background" parent="Game" instance=ExtResource("1_21dmo")]
+position = Vector2(0, -13)
+
+[node name="WalkLine" parent="Game" node_paths=PackedStringArray("spawn") instance=ExtResource("2_xl2mk")]
+spawn = NodePath("../Spawn")
+
+[node name="FollowCamera" type="Camera2D" parent="Game" node_paths=PackedStringArray("target")]
+offset = Vector2(30, -20)
+position_smoothing_enabled = true
+script = ExtResource("2_6ajms")
+target = NodePath("../Player")
+
+[node name="Player" parent="Game" node_paths=PackedStringArray("spawn", "walk_line") instance=ExtResource("5_wvwmv")]
+position = Vector2(-239, -93)
+spawn = NodePath("../Spawn")
+walk_line = NodePath("../WalkLine")
+
+[node name="Spawn" parent="Game" node_paths=PackedStringArray("walk_line") instance=ExtResource("5_wua2b")]
+walk_line = NodePath("../WalkLine")
+
+[node name="PixelPerfectLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("main_camera", "pixel_perfect_camera")]
+layer = 5
+script = ExtResource("6_wua2b")
+main_camera = NodePath("../Game/FollowCamera")
+pixel_perfect_camera = NodePath("SubViewport/PixelPerfectCamera")
+
+[node name="SubViewport" type="SubViewport" parent="PixelPerfectLayer"]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(256, 128)
+
+[node name="PixelPerfectCamera" type="Camera2D" parent="PixelPerfectLayer/SubViewport"]
+offset = Vector2(30, -20)
+position_smoothing_enabled = true
+
+[node name="ViewportTexture" type="TextureRect" parent="PixelPerfectLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_xl2mk")

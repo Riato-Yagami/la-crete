@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DebugValues" load_steps=2 format=3 uid="uid://jy2rfuh7bycg"]
+
+[ext_resource type="Script" uid="uid://dc7x50ij6tyld" path="res://resources/scripts/settings/debug/debug-values.gd" id="1_o2li6"]
+
+[resource]
+script = ExtResource("1_o2li6")
+enabled = false
+time_scale = 30.0
+climb_walk = true

@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://c035q8gax3t0b"]
+
+[ext_resource type="PackedScene" uid="uid://18klr6wof0hv" path="res://resources/scenes/background.tscn" id="1_2mqra"]
+[ext_resource type="PackedScene" uid="uid://cs3erh1dkft5e" path="res://resources/scenes/walk_line.tscn" id="2_wtvok"]
+[ext_resource type="Script" uid="uid://c3kjrm7s70h1e" path="res://resources/scripts/follow-camera.gd" id="3_amyjd"]
+[ext_resource type="PackedScene" uid="uid://bms3ha4d130k1" path="res://resources/scenes/player.tscn" id="4_laxhc"]
+[ext_resource type="PackedScene" uid="uid://y2jrbod3f8o0" path="res://resources/scenes/spawn.tscn" id="5_e1sfr"]
+[ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="6_v5w8g"]
+[ext_resource type="SpriteFrames" uid="uid://jbfytmqf2xlg" path="res://resources/sprite-frames/refuge.tres" id="7_3artx"]
+[ext_resource type="Script" uid="uid://c5xolocyrkxu8" path="res://resources/scripts/end.gd" id="7_lr7va"]
+
+[node name="GameScreen" type="Node"]
+
+[node name="Background" parent="." instance=ExtResource("1_2mqra")]
+position = Vector2(0, -13)
+
+[node name="WalkLine" parent="." node_paths=PackedStringArray("spawn", "end") instance=ExtResource("2_wtvok")]
+spawn = NodePath("../Spawn")
+end = NodePath("../End")
+
+[node name="FollowCamera" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+offset = Vector2(30, -20)
+position_smoothing_enabled = true
+script = ExtResource("3_amyjd")
+target = NodePath("../Player")
+
+[node name="Player" parent="." node_paths=PackedStringArray("spawn", "player_camera", "walk_line") instance=ExtResource("4_laxhc")]
+position = Vector2(-239, -93)
+spawn = NodePath("../Spawn")
+player_camera = NodePath("../FollowCamera")
+walk_line = NodePath("../WalkLine")
+
+[node name="Spawn" parent="." node_paths=PackedStringArray("walk_line") instance=ExtResource("5_e1sfr")]
+walk_line = NodePath("../WalkLine")
+
+[node name="PixelPerfectLayer" parent="." node_paths=PackedStringArray("main_camera") instance=ExtResource("6_v5w8g")]
+main_camera = NodePath("../FollowCamera")
+
+[node name="End" type="Node2D" parent="." node_paths=PackedStringArray("walk_line", "sprite", "player") groups=["PP"]]
+position = Vector2(3000, 0)
+script = ExtResource("7_lr7va")
+walk_line = NodePath("../WalkLine")
+sprite = NodePath("AnimatedSprite2D")
+player = NodePath("../Player")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="End"]
+position = Vector2(0, -21)
+sprite_frames = ExtResource("7_3artx")
+autoplay = "default"

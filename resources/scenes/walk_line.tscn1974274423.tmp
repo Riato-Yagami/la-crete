@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs3erh1dkft5e"]
+
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line.gd" id="1_v0b24"]
+[ext_resource type="Script" uid="uid://c6lu1hudvghfc" path="res://resources/scripts/walk-line/ridge-fill.gd" id="2_ffhfk"]
+[ext_resource type="Script" uid="uid://c7b01xb7twcey" path="res://resources/scripts/walk-line/cretes_parent.gd" id="3_ffhfk"]
+
+[node name="WalkLine" type="Line2D" groups=["PP"]]
+width = 3.0
+default_color = Color(0.752941, 0.776471, 0.92549, 1)
+script = ExtResource("1_v0b24")
+
+[node name="RidgeFill" type="Node2D" parent="." node_paths=PackedStringArray("line")]
+script = ExtResource("2_ffhfk")
+line = NodePath("..")
+fill_color = Color(0.752941, 0.776471, 0.92549, 1)
+
+[node name="CretesParent" type="Node2D" parent="."]
+script = ExtResource("3_ffhfk")

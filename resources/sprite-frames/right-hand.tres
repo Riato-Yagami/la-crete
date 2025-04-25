@@ -1,0 +1,23 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://dfhcapqd1js6q"]
+
+[ext_resource type="Texture2D" uid="uid://su68hcubek0x" path="res://resources/sprites/player/hand/right-hand-close.png" id="1_hn81a"]
+[ext_resource type="Texture2D" uid="uid://dqfu0alefi3yi" path="res://resources/sprites/player/hand/right-hand-open.png" id="2_w4221"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_hn81a")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w4221")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
