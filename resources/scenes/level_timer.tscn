@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://b33gcacwyudwn"]
+
+[ext_resource type="Script" uid="uid://ce083nh85ng8f" path="res://resources/scripts/time/level-timer.gd" id="1_wigpm"]
+[ext_resource type="LabelSettings" uid="uid://do17hhlow1335" path="res://resources/font/h_m_s_label_settings.tres" id="2_1kw6w"]
+[ext_resource type="LabelSettings" uid="uid://cipoq8ik4g4jq" path="res://resources/font/ms_label_settings.tres" id="3_lmj7q"]
+
+[node name="LevelTimer" type="Control" node_paths=PackedStringArray("hms_label", "ms_label")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wigpm")
+hms_label = NodePath("Control/h_m_s")
+ms_label = NodePath("Control/ms")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1.0
+offset_top = 104.0
+offset_right = 41.0
+offset_bottom = 144.0
+
+[node name="h_m_s" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 12.0
+offset_right = 221.0
+offset_bottom = 35.0
+text = "00:00:00"
+label_settings = ExtResource("2_1kw6w")
+
+[node name="ms" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 16.0
+offset_right = 263.0
+offset_bottom = 39.0
+text = ".000"
+label_settings = ExtResource("3_lmj7q")

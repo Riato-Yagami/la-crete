@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://qtg0vc8kvo8n"]
+
+[ext_resource type="Texture2D" uid="uid://n2vm382iptis" path="res://resources/sprites/menu/buttons/sound-button-off.png" id="1_1jmoh"]
+[ext_resource type="Script" uid="uid://dej6ev1g5b7gh" path="res://resources/scripts/button.gd" id="2_bn6gm"]
+[ext_resource type="Texture2D" uid="uid://decwvuxxs7ud6" path="res://resources/sprites/menu/buttons/sound-button-on.png" id="3_046bk"]
+[ext_resource type="Texture2D" uid="uid://blveocyhonlne" path="res://resources/sprites/menu/buttons/play-button-off.png" id="4_gvdtq"]
+[ext_resource type="Texture2D" uid="uid://bllh51pytqxpy" path="res://resources/sprites/menu/buttons/play-button-on.png" id="5_whyqa"]
+
+[node name="Buttons" type="Node"]
+
+[node name="SoundBoutton" type="Sprite2D" parent="."]
+position = Vector2(98, -43)
+texture = ExtResource("1_1jmoh")
+script = ExtResource("2_bn6gm")
+on_texture = ExtResource("3_046bk")
+off_texture = ExtResource("1_1jmoh")
+input = "mute"
+
+[node name="PlayButton" type="Sprite2D" parent="."]
+position = Vector2(31, -43)
+texture = ExtResource("4_gvdtq")
+script = ExtResource("2_bn6gm")
+on_texture = ExtResource("5_whyqa")
+off_texture = ExtResource("4_gvdtq")
+input = "move_forward"

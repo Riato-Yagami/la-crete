@@ -3,7 +3,7 @@ extends Node
 var sound_r = preload("res://resources/scenes/sound.tscn")
 var sounds_node
 var music_node
-var sound_path = "res://resources/audio/sounds/transition.wav"
+var sound_path = "res://resources/audio/sounds/"
 var default_music_volume
 var is_Mute = false
 
@@ -15,7 +15,7 @@ var loops : Dictionary = {}
 var music
 
 func _ready():
-	music_bus = AudioServer.get_bus_index("Music")
+	#music_bus = AudioServer.get_bus_index("Music")
 	#music_pitch_effect = AudioServer.get_bus_effect(music_bus, 0)
 	
 	var audio_node = GameManager.main.get_node("Audio")

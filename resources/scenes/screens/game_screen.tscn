@@ -37,7 +37,7 @@ walk_line = NodePath("../WalkLine")
 main_camera = NodePath("../FollowCamera")
 
 [node name="End" type="Node2D" parent="." node_paths=PackedStringArray("walk_line", "sprite", "player") groups=["PP"]]
-position = Vector2(3000, 0)
+position = Vector2(2300, 0)
 script = ExtResource("7_lr7va")
 walk_line = NodePath("../WalkLine")
 sprite = NodePath("AnimatedSprite2D")

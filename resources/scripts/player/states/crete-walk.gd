@@ -4,6 +4,8 @@ class_name CreteWalk
 @export var walk : Walk
 @export var unbalanced : Unbalanced
 func _enter():
+	#parent.player_camera.apply_shake(10)
+	AudioManager.start_loop("walk")
 	parent.balance_bar.visible = true
 	
 func process_frame(delta: float) -> State:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1elc385ikt8j"]
+[gd_scene load_steps=5 format=3 uid="uid://d1elc385ikt8j"]
 
 [ext_resource type="Texture2D" uid="uid://cbcohgdwegno2" path="res://resources/sprites/menu/victory-screen-vanilla.png" id="1_m6rmw"]
+[ext_resource type="PackedScene" uid="uid://ctubuvyp5lif" path="res://resources/scenes/buttons/buttons-end.tscn" id="2_n86oj"]
 [ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="2_qfi7g"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_es1jm"]
@@ -10,6 +11,14 @@ viewport_path = NodePath("PixelPerfectLayer/SubViewport")
 
 [node name="Background" type="Sprite2D" parent="." groups=["PP"]]
 texture = ExtResource("1_m6rmw")
+
+[node name="Buttons" parent="Background" instance=ExtResource("2_n86oj")]
+
+[node name="PlayButton" parent="Background/Buttons" index="1"]
+position = Vector2(66, -6)
+
+[node name="MenuButton" parent="Background/Buttons" index="2"]
+position = Vector2(101, -6)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -22,4 +31,5 @@ texture = SubResource("ViewportTexture_es1jm")
 [node name="PixelPerfectCamera" parent="PixelPerfectLayer/SubViewport" index="0"]
 offset = Vector2(0, 0)
 
+[editable path="Background/Buttons"]
 [editable path="PixelPerfectLayer"]

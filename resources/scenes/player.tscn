@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bms3ha4d130k1"]
+[gd_scene load_steps=20 format=3 uid="uid://bms3ha4d130k1"]
 
 [ext_resource type="Script" uid="uid://bvlpgcau3o3vm" path="res://resources/scripts/player.gd" id="1_4bag7"]
 [ext_resource type="SpriteFrames" uid="uid://8cnglwj6i4l3" path="res://resources/sprite-frames/player.tres" id="2_wwmvc"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cvnxije5viys7" path="res://resources/sprites/player/balance/cursor.png" id="8_o7bv2"]
 [ext_resource type="Script" uid="uid://oqhwyghev8co" path="res://resources/scripts/player/states/unbalanced.gd" id="8_w3pfj"]
 [ext_resource type="Script" uid="uid://kolaguy8ehet" path="res://resources/scripts/player/states/falling.gd" id="9_qbhad"]
+[ext_resource type="PackedScene" uid="uid://dowjgn21uvurf" path="res://resources/scenes/buttons/right_button.tscn" id="12_dnd35"]
+[ext_resource type="PackedScene" uid="uid://bmohw42325esh" path="res://resources/scenes/buttons/left_button.tscn" id="13_qde6l"]
 [ext_resource type="Texture2D" uid="uid://b78nj5hrcj2hi" path="res://resources/sprites/player/hand/left-hand-close.png" id="13_tvpkr"]
 [ext_resource type="Script" uid="uid://dhhde8j3rj3r8" path="res://resources/scripts/player/bar/climb-bar.gd" id="13_yxjkx"]
 [ext_resource type="Texture2D" uid="uid://nlnob1jsm7wo" path="res://resources/sprites/player/hand/left-hand-open.png" id="14_u0r4w"]
@@ -108,6 +110,12 @@ script = ExtResource("8_ddmc6")
 cursor = NodePath("Cursor")
 length = 32.0
 player = NodePath("../..")
+
+[node name="RightButton" parent="HUD/BalanceBar" instance=ExtResource("12_dnd35")]
+position = Vector2(-44, 5)
+
+[node name="LeftButton" parent="HUD/BalanceBar" instance=ExtResource("13_qde6l")]
+position = Vector2(44, 5)
 
 [node name="Cursor" type="Sprite2D" parent="HUD/BalanceBar"]
 position = Vector2(0, 5)

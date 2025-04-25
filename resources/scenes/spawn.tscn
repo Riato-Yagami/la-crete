@@ -1,13 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://y2jrbod3f8o0"]
+[gd_scene load_steps=4 format=3 uid="uid://y2jrbod3f8o0"]
 
 [ext_resource type="Script" uid="uid://c5dh4ek28p35f" path="res://resources/scripts/spawn.gd" id="1_ac31t"]
 [ext_resource type="Texture2D" uid="uid://oyj1jbdcq2bd" path="res://resources/sprites/structure/spawn-tent.png" id="2_m5g8o"]
+[ext_resource type="Script" uid="uid://dej6ev1g5b7gh" path="res://resources/scripts/button.gd" id="3_m5g8o"]
 
-[node name="Spawn" type="Node2D" node_paths=PackedStringArray("walk_line", "sprite") groups=["PP"]]
+[node name="Spawn" type="Node2D" node_paths=PackedStringArray("sprite") groups=["PP"]]
 script = ExtResource("1_ac31t")
-walk_line = NodePath("")
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-20, 0)
 texture = ExtResource("2_m5g8o")
+
+[node name="ForwardButton" type="Sprite2D" parent="."]
+script = ExtResource("3_m5g8o")
+metadata/_custom_type_script = "uid://dej6ev1g5b7gh"

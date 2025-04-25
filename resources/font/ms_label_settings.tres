@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cipoq8ik4g4jq"]
+
+[ext_resource type="FontFile" uid="uid://dfuhovfqf48um" path="res://resources/font/c-carre-4px.ttf" id="1_cxs0t"]
+
+[resource]
+font = ExtResource("1_cxs0t")
+font_size = 4
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0

@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj77m061s8jb0"]
+[gd_scene load_steps=7 format=3 uid="uid://bj77m061s8jb0"]
 
 [ext_resource type="Texture2D" uid="uid://ct3avhjpfanwn" path="res://resources/sprites/menu/menu-vanilla.png" id="2_6581t"]
 [ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="2_bbdse"]
+[ext_resource type="PackedScene" uid="uid://qtg0vc8kvo8n" path="res://resources/scenes/buttons/buttons-start.tscn" id="2_h6c3x"]
+[ext_resource type="PackedScene" uid="uid://bmohw42325esh" path="res://resources/scenes/buttons/left_button.tscn" id="3_hocn5"]
+[ext_resource type="PackedScene" uid="uid://dowjgn21uvurf" path="res://resources/scenes/buttons/right_button.tscn" id="4_ofuwq"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h6c3x"]
 viewport_path = NodePath("PixelPerfectLayer/SubViewport")
@@ -13,6 +16,20 @@ viewport_path = NodePath("PixelPerfectLayer/SubViewport")
 [node name="Background" type="Sprite2D" parent="." groups=["PP"]]
 texture = ExtResource("2_6581t")
 
+[node name="Buttons" parent="Background" instance=ExtResource("2_h6c3x")]
+
+[node name="SoundBoutton" parent="Background/Buttons" index="0"]
+position = Vector2(-8, 40)
+
+[node name="PlayButton" parent="Background/Buttons" index="1"]
+position = Vector2(-8, 13)
+
+[node name="LeftButton" parent="Background/Buttons" instance=ExtResource("3_hocn5")]
+position = Vector2(-110, 36)
+
+[node name="RightButton" parent="Background/Buttons" instance=ExtResource("4_ofuwq")]
+position = Vector2(-77, 36)
+
 [node name="PixelPerfectLayer" parent="." node_paths=PackedStringArray("main_camera") instance=ExtResource("2_bbdse")]
 main_camera = NodePath("../Camera2D")
 
@@ -22,4 +39,5 @@ texture = SubResource("ViewportTexture_h6c3x")
 [node name="PixelPerfectCamera" parent="PixelPerfectLayer/SubViewport" index="0"]
 offset = Vector2(0, 0)
 
+[editable path="Background/Buttons"]
 [editable path="PixelPerfectLayer"]

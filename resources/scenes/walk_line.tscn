@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cs3erh1dkft5e"]
 
-[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line.gd" id="1_v0b24"]
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line/walk-line.gd" id="1_v0b24"]
 [ext_resource type="Script" uid="uid://c6lu1hudvghfc" path="res://resources/scripts/walk-line/ridge-fill.gd" id="2_ffhfk"]
 [ext_resource type="Script" uid="uid://c7b01xb7twcey" path="res://resources/scripts/walk-line/cretes-parent.gd" id="3_ffhfk"]
 

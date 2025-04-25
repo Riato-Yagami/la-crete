@@ -7,6 +7,9 @@ class_name Walk
 
 @export var walk_back_speed_modifier : float = 0.5
 
+func _enter():
+	AudioManager.start_loop("walk")
+
 func process_frame(delta: float) -> State:
 	#print(is_on_crete)
 		
@@ -25,6 +28,7 @@ func process_frame(delta: float) -> State:
 	return null
 
 func move(delta,slant):
+	
 	var _speed : float = move_speed * delta
 	
 	if(parent.direction < 0) : _speed *= walk_back_speed_modifier

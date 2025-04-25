@@ -7,6 +7,7 @@ extends State
 
 func _enter():
 	climb_bar.visible = true
+	AudioManager.stop_loop("walk")
 	#climb_speed = move_speed * 0.02s
 	
 func exit():

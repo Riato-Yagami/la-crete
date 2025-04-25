@@ -4,6 +4,10 @@ class_name Game
 @export var game_over : GameOver
 @export var victory : Victory
 
+func _enter():
+	get_parent().level_timer.clock.reset()
+	get_parent().level_timer.clock.start()
+	
 func end_game():
 	get_parent().change_state(game_over)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c8f3do4ffwfxr"]
+[gd_scene load_steps=14 format=3 uid="uid://c8f3do4ffwfxr"]
 
 [ext_resource type="PackedScene" uid="uid://c035q8gax3t0b" path="res://resources/scenes/screens/game_screen.tscn" id="1_s6ncf"]
 [ext_resource type="Script" uid="uid://i2u83wfrxy03" path="res://resources/scripts/screens/start.gd" id="2_6ajms"]
@@ -11,13 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://d1elc385ikt8j" path="res://resources/scenes/screens/victory_screen.tscn" id="9_r0tc7"]
 [ext_resource type="SpriteFrames" uid="uid://tbh4d5ss7u3h" path="res://resources/sprite-frames/transition.tres" id="10_bf3j7"]
 [ext_resource type="Script" uid="uid://dpkicfh2bi63f" path="res://resources/scripts/screens/transition.gd" id="10_udu54"]
-[ext_resource type="AudioStream" uid="uid://laam71dkd0cj" path="res://audio/musics/theme.wav" id="12_fnme6"]
+[ext_resource type="PackedScene" uid="uid://b33gcacwyudwn" path="res://resources/scenes/level_timer.tscn" id="12_21dmo"]
+[ext_resource type="AudioStream" uid="uid://laam71dkd0cj" path="res://resources/audio/musics/theme.wav" id="12_fnme6"]
 
 [node name="Main" type="Node"]
 
-[node name="ScreenMachine" type="Node" parent="." node_paths=PackedStringArray("transition", "starting_state")]
+[node name="ScreenMachine" type="Node" parent="." node_paths=PackedStringArray("transition", "level_timer", "hud", "starting_state")]
 script = ExtResource("3_6ajms")
-transition = NodePath("Transition")
+transition = NodePath("Hud/Transition")
+level_timer = NodePath("Hud/LevelTimer")
+hud = NodePath("Hud")
 starting_state = NodePath("Start")
 
 [node name="Game" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game_over", "victory")]
@@ -32,27 +35,29 @@ game = NodePath("../Game")
 screen_ressource = ExtResource("2_epx6m")
 metadata/_custom_type_script = "uid://i2u83wfrxy03"
 
-[node name="GameOver" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game")]
+[node name="GameOver" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game", "start")]
 script = ExtResource("6_wua2b")
 game = NodePath("../Game")
+start = NodePath("../Start")
 screen_ressource = ExtResource("7_xl2mk")
 
-[node name="Victory" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game")]
+[node name="Victory" type="Node" parent="ScreenMachine" node_paths=PackedStringArray("game", "start")]
 script = ExtResource("8_wvwmv")
 game = NodePath("../Game")
+start = NodePath("../Start")
 screen_ressource = ExtResource("9_r0tc7")
 
-[node name="Transition" type="Parallax2D" parent="ScreenMachine" node_paths=PackedStringArray("animation") groups=["PP"]]
-visible = false
+[node name="Hud" type="Parallax2D" parent="ScreenMachine" groups=["PP"]]
 z_index = 100
 scroll_scale = Vector2(0, 0)
-script = ExtResource("10_udu54")
-animation = NodePath("AnimatedSprite2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ScreenMachine/Transition"]
+[node name="Transition" type="AnimatedSprite2D" parent="ScreenMachine/Hud"]
 sprite_frames = ExtResource("10_bf3j7")
 animation = &"open"
 centered = false
+script = ExtResource("10_udu54")
+
+[node name="LevelTimer" parent="ScreenMachine/Hud" instance=ExtResource("12_21dmo")]
 
 [node name="Audio" type="Node" parent="."]
 
@@ -61,4 +66,4 @@ centered = false
 [node name="Music" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("12_fnme6")
 
-[connection signal="animation_finished" from="ScreenMachine/Transition/AnimatedSprite2D" to="ScreenMachine" method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="ScreenMachine/Hud/Transition" to="ScreenMachine" method="_on_animated_sprite_2d_animation_finished"]

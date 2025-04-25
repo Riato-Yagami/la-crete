@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdxba82vxpsav"]
+[gd_scene load_steps=5 format=3 uid="uid://cdxba82vxpsav"]
 
 [ext_resource type="PackedScene" uid="uid://cu5dcyfe3pcei" path="res://resources/scenes/pixel_perfect_layer.tscn" id="1_e3llb"]
 [ext_resource type="Texture2D" uid="uid://d3hj8uk3rqpub" path="res://resources/sprites/menu/death-screen-vanilla.png" id="1_es1jm"]
+[ext_resource type="PackedScene" uid="uid://ctubuvyp5lif" path="res://resources/scenes/buttons/buttons-end.tscn" id="2_21l2c"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_es1jm"]
 viewport_path = NodePath("PixelPerfectLayer/SubViewport")
@@ -10,6 +11,8 @@ viewport_path = NodePath("PixelPerfectLayer/SubViewport")
 
 [node name="Background" type="Sprite2D" parent="." groups=["PP"]]
 texture = ExtResource("1_es1jm")
+
+[node name="Buttons" parent="Background" instance=ExtResource("2_21l2c")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

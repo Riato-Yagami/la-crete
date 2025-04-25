@@ -5,6 +5,8 @@ var value : float = 0 #range between -1 and 1
 var balance_force : float = 0
 var unbalance_start : float = 1
 
+@export var shake_strength : float = 10
+
 @export var unbalance_force : float = 0.5
 @export var rebalance_force : float = 1
 
@@ -37,6 +39,8 @@ func _process(delta):
 		update()
 	else :
 		value = 0
+		
+	player.player_camera.apply_shake(value * shake_strength)
 
 func update():
 	cursor.position.x = value * length
