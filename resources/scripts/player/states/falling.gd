@@ -11,7 +11,7 @@ func _enter():
 	parent.player_camera.active = false
 	
 func process_frame(delta: float) -> State:
-	parent.position.y += move_speed
+	parent.position.y += move_speed * delta
 	#death_timer+= delta
 	
 	if(parent.position.y > parent.player_camera.position.y + 60):

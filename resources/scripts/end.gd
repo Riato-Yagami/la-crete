@@ -8,6 +8,8 @@ class_name End
 
 func _process(delta):
 	if(player.position.x > position.x - 10):
+		var sheltered_state : Sheltered = player.state_machine.get_node("Sheltered")
+		player.state_machine.change_state(sheltered_state)
 		var game : Game = GameManager.main.get_node("ScreenMachine/Game")
 		game.win_game()
 		

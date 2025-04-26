@@ -44,3 +44,8 @@ func _process(delta):
 
 func update():
 	cursor.position.x = value * length
+	
+	if(abs(value) > 0.9) : RumbleManager.big()
+	else : if(abs(value) > 0.75) : RumbleManager.medium()
+	else : if(abs(value) > 0.5) : RumbleManager.small()
+	else : if(abs(value) > 0.25) : RumbleManager.tiny()

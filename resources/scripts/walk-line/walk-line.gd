@@ -12,7 +12,8 @@ var point_count : int :
 	
 var height_bound : Vector2 = Vector2(-100,1000)
 
-@export var cretes_parent : CretesParent
+@export var crete_parent : CreteParent
+@export var cairn_parent : CairnParent
 
 @export var spawn : Spawn
 @export var end : End
@@ -26,26 +27,34 @@ func _ready():
 	path_bound.y = end.position.x + 400
 	#print("Spawn height :" + str(height))
 	x = path_bound.x
-	#var next_x = x + 300
+	
+	
+	#_create_path(250,Vector2(-10,200))
+	#_create_path(250,Vector2(-200,0))
+	
 	_create_path(300,Vector2(-5,5))
-	#x = next_x; next_x = x + 200
 	_create_path(250,Vector2(-10,20))
-	#x = next_x; next_x = x + 100
 	_create_path(100,Vector2(-30,100))
-	#x = next_x; next_x = x + 100
 	_create_path(100,Vector2(-30,30))
 	_create_path(300,Vector2(-100,10))
 	_create_path(100,Vector2(-10,10))
 	_create_path(50,Vector2(10,300))
 	_create_path(200,Vector2(10,10))
-	_create_path(200,Vector2(-100,300))
+	_create_path(200,Vector2(-200,70))
 	_create_path(200,Vector2(-50,50))
 	_create_path(path_bound.y - x,Vector2(-5,5))
 	
 	spawn.move_to_floor()
 	end.move_to_floor()
 	#_create_path(Vector2(-1000,1000))
-	cretes_parent.add_cretes(self)
+	crete_parent.add_hazards()
+	cairn_parent.add_hazards()
+	
+func move_to_floor(node : Node2D, offset : float = 0) -> void:
+	node.position.y = get_height(node.position.x) - offset
+	
+func get_fraction(point_id : int) -> float:
+	return float(point_id) / float(get_point_count())
 	
 func get_point_id(_x : float) :
 	var id : int = 0
@@ -55,9 +64,16 @@ func get_point_id(_x : float) :
 	return id
 	#var point_id : int = (x - path_bound.x) / point_rate
 	#return point_id
+
+func is_off_bound(_x : float) -> bool:
+	return is_point_off_bound(get_point_id(_x))
+	
+func is_point_off_bound(point_id : int) -> bool:
+	return point_id == -1 or point_id > get_point_count() -1
 	
 func get_height(_x : float) -> float :
 	var point_id : int = get_point_id(_x)
+	if(is_point_off_bound(point_id)): return 0
 	#print("Point id :" + str(point_id) + "/" + str(point_count))
 	var portion_x : Vector2 = Vector2(get_point_position(point_id).x, get_point_position(point_id+1).x)
 	var portion_y : Vector2 = Vector2(get_point_position(point_id).y, get_point_position(point_id+1).y)

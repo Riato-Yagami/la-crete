@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs3erh1dkft5e"]
+
+[ext_resource type="Script" uid="uid://sic5eb31wnc2" path="res://resources/scripts/walk-line/walk-line.gd" id="1_v0b24"]
+[ext_resource type="Script" uid="uid://c6lu1hudvghfc" path="res://resources/scripts/walk-line/ridge-fill.gd" id="2_ffhfk"]
+[ext_resource type="Script" uid="uid://c7b01xb7twcey" path="res://resources/scripts/walk-line/hazards/crete-parent.gd" id="3_ffhfk"]
+[ext_resource type="PackedScene" uid="uid://dv4jdpix24k0h" path="res://resources/scenes/hazards/crete.tscn" id="4_ajh5n"]
+[ext_resource type="Script" uid="uid://bgflwgecepc1e" path="res://resources/scripts/walk-line/hazards/cairn-parent.gd" id="4_disj4"]
+[ext_resource type="PackedScene" uid="uid://xcxf6tn3avo2" path="res://resources/scenes/hazards/cairn.tscn" id="5_v25kr"]
+
+[node name="WalkLine" type="Line2D" node_paths=PackedStringArray("crete_parent", "cairn_parent") groups=["PP"]]
+width = 3.0
+default_color = Color(0.752941, 0.776471, 0.92549, 1)
+script = ExtResource("1_v0b24")
+crete_parent = NodePath("CreteParent")
+cairn_parent = NodePath("CairnParent")
+
+[node name="RidgeFill" type="Node2D" parent="." node_paths=PackedStringArray("line")]
+script = ExtResource("2_ffhfk")
+line = NodePath("..")
+fill_color = Color(0.752941, 0.776471, 0.92549, 1)
+
+[node name="CreteParent" type="Node2D" parent="." node_paths=PackedStringArray("walk_line")]
+script = ExtResource("3_ffhfk")
+max_length = null
+probability = null
+resource = ExtResource("4_ajh5n")
+walk_line = NodePath("..")
+max_slant = 30
+hazard_bound = null
+
+[node name="CairnParent" type="Node2D" parent="." node_paths=PackedStringArray("walk_line")]
+script = ExtResource("4_disj4")
+resource = ExtResource("5_v25kr")
+walk_line = NodePath("..")
+metadata/_custom_type_script = "uid://bgflwgecepc1e"

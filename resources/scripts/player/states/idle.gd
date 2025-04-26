@@ -1,5 +1,5 @@
 extends State
-
+class_name Idle
 @export var walk : State
 
 func _enter():

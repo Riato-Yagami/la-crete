@@ -51,11 +51,20 @@ screen_ressource = ExtResource("9_r0tc7")
 z_index = 100
 scroll_scale = Vector2(0, 0)
 
-[node name="Transition" type="AnimatedSprite2D" parent="ScreenMachine/Hud"]
+[node name="Transition" type="AnimatedSprite2D" parent="ScreenMachine/Hud" node_paths=PackedStringArray("hide_frame")]
 sprite_frames = ExtResource("10_bf3j7")
-animation = &"open"
+animation = &"close"
 centered = false
 script = ExtResource("10_udu54")
+hide_frame = NodePath("ColorRect")
+
+[node name="ColorRect" type="ColorRect" parent="ScreenMachine/Hud/Transition"]
+visible = false
+offset_left = -427.0
+offset_top = -278.0
+offset_right = -387.0
+offset_bottom = -238.0
+scale = Vector2(50, 26.625)
 
 [node name="LevelTimer" parent="ScreenMachine/Hud" instance=ExtResource("12_21dmo")]
 

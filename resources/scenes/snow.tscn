@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://clt5hvvp6xppt"]
+
+[ext_resource type="Material" uid="uid://dcrvthm88vhfa" path="res://resources/shaders/snow_shader.tres" id="1_7km0h"]
+[ext_resource type="Script" uid="uid://d2m0jr2tsiym7" path="res://resources/scripts/snow.gd" id="2_w06fb"]
+
+[node name="Snow" type="GPUParticles2D"]
+amount = 32
+lifetime = 20.0
+process_material = ExtResource("1_7km0h")
+script = ExtResource("2_w06fb")

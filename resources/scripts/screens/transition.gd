@@ -5,3 +5,4 @@ class_name Transition
 #
 #func play(animation_name : String):
 	#animation.play(animation_name)
+@export var hide_frame : ColorRect

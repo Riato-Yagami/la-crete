@@ -1,0 +1,20 @@
+[gd_scene load_steps=8 format=3 uid="uid://xcxf6tn3avo2"]
+
+[ext_resource type="Script" uid="uid://cnf0nrfyh6ksa" path="res://resources/scripts/walk-line/hazards/cairn.gd" id="1_swcmf"]
+[ext_resource type="Texture2D" uid="uid://rl77dm6aps4g" path="res://resources/sprites/cairns/cairns-01.png" id="1_yrmpn"]
+[ext_resource type="Texture2D" uid="uid://dwqga0rfywm7p" path="res://resources/sprites/cairns/cairns-02.png" id="3_236cv"]
+[ext_resource type="Texture2D" uid="uid://b0k0g0brpo3g4" path="res://resources/sprites/cairns/cairns-03.png" id="4_imhpq"]
+[ext_resource type="Texture2D" uid="uid://gwcnvlsuuifw" path="res://resources/sprites/cairns/cairns-04.png" id="5_gpjpl"]
+[ext_resource type="Texture2D" uid="uid://471g6tk6626h" path="res://resources/sprites/cairns/cairns-05.png" id="6_ao8h4"]
+[ext_resource type="Texture2D" uid="uid://b4rxnbva2wy01" path="res://resources/sprites/cairns/cairns-06.png" id="7_82b1o"]
+
+[node name="Cairn" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_swcmf")
+textures = Array[Texture]([ExtResource("1_yrmpn"), ExtResource("3_236cv"), ExtResource("4_imhpq"), ExtResource("5_gpjpl"), ExtResource("6_ao8h4"), ExtResource("7_82b1o")])
+sprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://cnf0nrfyh6ksa"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -8)
+texture = ExtResource("1_yrmpn")

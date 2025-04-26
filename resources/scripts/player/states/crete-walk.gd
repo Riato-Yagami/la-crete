@@ -10,7 +10,7 @@ func _enter():
 	
 func process_frame(delta: float) -> State:
 	var _slant : float = parent.walk_line.get_slant(parent.position.x) # angle between -90 and 90
-	var is_on_crete = parent.walk_line.cretes_parent.is_on_crete(parent.walk_line.get_point_id(parent.position.x))
+	var is_on_crete = parent.walk_line.crete_parent.is_on_crete(parent.walk_line.get_point_id(parent.position.x))
 	
 	if(!parent.is_on_crete):
 		parent.balance_bar.visible = false

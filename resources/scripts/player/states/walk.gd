@@ -2,16 +2,29 @@ extends State
 class_name Walk
 
 @export var idle : State
-@export var climb : State
+@export var climb : Climb
 @export var creteWalk : CreteWalk
+@export var falling : Falling
+
+@export var foot_print : GPUParticles2D
 
 @export var walk_back_speed_modifier : float = 0.5
 
 func _enter():
+	#foot_print.emitting = true
+	parent.animation.flip_h = false
 	AudioManager.start_loop("walk")
 
+#func exit():
+	#if(foot_print): foot_print.emitting = false
+	
 func process_frame(delta: float) -> State:
 	#print(is_on_crete)
+	
+	#var point_id = parent.walk_line.get_point_id(parent.position.x)
+	#print("Player point id : ",point_id)
+	if(parent.walk_line.is_off_bound(parent.position.x)):
+		return falling
 		
 	var _slant : float = parent.walk_line.get_slant(parent.position.x) # angle between -90 and 90
 	if(abs(_slant) > climb.climb_angle): return climb

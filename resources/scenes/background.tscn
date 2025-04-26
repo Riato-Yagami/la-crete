@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://18klr6wof0hv"]
+[gd_scene load_steps=11 format=3 uid="uid://18klr6wof0hv"]
 
 [ext_resource type="Texture2D" uid="uid://b7oj81kk7f5kb" path="res://resources/sprites/backgrounds/mountains/mountain-03.png" id="1_hj4nr"]
 [ext_resource type="Texture2D" uid="uid://ukkrk0lph7u6" path="res://resources/sprites/backgrounds/mountains/mountain-02.png" id="2_6dfrx"]
@@ -8,66 +8,122 @@
 [ext_resource type="Texture2D" uid="uid://gtc00q15k6f3" path="res://resources/sprites/backgrounds/mountains/mountain-01.png" id="4_ehmj4"]
 [ext_resource type="Texture2D" uid="uid://7388pg8g3a8w" path="res://resources/sprites/backgrounds/background.png" id="5_6dfrx"]
 [ext_resource type="Texture2D" uid="uid://qw2bgp0h88in" path="res://resources/gradients/mountains-3.tres" id="5_ubnfw"]
+[ext_resource type="Texture2D" uid="uid://bkoc8xm2aj80u" path="res://resources/sprites/foreground/cloud-01.png" id="9_7qpwn"]
+[ext_resource type="SpriteFrames" uid="uid://whn5pq8kp1kx" path="res://resources/sprite-frames/bird.tres" id="10_ge13x"]
 
 [node name="Background" type="Node2D" groups=["PP"]]
 
-[node name="Background" type="Parallax2D" parent="."]
+[node name="BackGround" type="Node2D" parent="."]
+z_index = -5
+
+[node name="Background" type="Parallax2D" parent="BackGround"]
 scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(0, 13)
 repeat_times = 20
 
-[node name="Background" type="Sprite2D" parent="Background"]
+[node name="Background" type="Sprite2D" parent="BackGround/Background"]
 texture = ExtResource("5_6dfrx")
 centered = false
 
-[node name="Layer4" type="Parallax2D" parent="."]
+[node name="Layer4" type="Parallax2D" parent="BackGround"]
 scroll_scale = Vector2(0.2, 0.2)
 repeat_size = Vector2(256, 0)
 repeat_times = 3
 
-[node name="Mountain" type="Sprite2D" parent="Layer4"]
+[node name="Mountain" type="Sprite2D" parent="BackGround/Layer4"]
 texture = ExtResource("1_hj4nr")
 offset = Vector2(100, 0)
 
-[node name="Gradient" type="Sprite2D" parent="Layer4"]
+[node name="Gradient" type="Sprite2D" parent="BackGround/Layer4"]
 position = Vector2(-34, 220)
 rotation = 1.56179
 scale = Vector2(5, 10)
 texture = ExtResource("3_ehmj4")
 
-[node name="Layer3" type="Parallax2D" parent="."]
+[node name="Layer3" type="Parallax2D" parent="BackGround"]
 scroll_scale = Vector2(0.3, 0.212)
 repeat_size = Vector2(256, 0)
 repeat_times = 3
 
-[node name="Mountain" type="Sprite2D" parent="Layer3"]
+[node name="Mountain" type="Sprite2D" parent="BackGround/Layer3"]
 texture = ExtResource("2_6dfrx")
 
-[node name="Gradient3" type="Sprite2D" parent="Layer3"]
+[node name="Gradient3" type="Sprite2D" parent="BackGround/Layer3"]
 position = Vector2(-35, 222)
 rotation = 1.56179
 scale = Vector2(5, 10)
 texture = ExtResource("5_ubnfw")
 
-[node name="Layer2" type="Parallax2D" parent="."]
+[node name="Layer2" type="Parallax2D" parent="BackGround"]
 scroll_scale = Vector2(0.4, 0.4)
 repeat_size = Vector2(256, 0)
 repeat_times = 3
 
-[node name="Mountain" type="Sprite2D" parent="Layer2"]
+[node name="Mountain" type="Sprite2D" parent="BackGround/Layer2"]
 texture = ExtResource("3_lwss0")
 
-[node name="Gradient2" type="Sprite2D" parent="Layer2"]
+[node name="Gradient2" type="Sprite2D" parent="BackGround/Layer2"]
 position = Vector2(-34, 222)
 rotation = 1.56179
 scale = Vector2(5, 10)
 texture = ExtResource("3_ubnfw")
 
-[node name="Layer1" type="Parallax2D" parent="."]
+[node name="Layer1" type="Parallax2D" parent="BackGround"]
 scroll_scale = Vector2(0.5, 0.5)
 repeat_size = Vector2(256, 0)
 repeat_times = 3
 
-[node name="Mountain" type="Sprite2D" parent="Layer1"]
+[node name="Mountain" type="Sprite2D" parent="BackGround/Layer1"]
 texture = ExtResource("4_ehmj4")
 offset = Vector2(100, 0)
+
+[node name="Foreground" type="Node2D" parent="."]
+z_index = 100
+
+[node name="Layer" type="Parallax2D" parent="Foreground"]
+scale = Vector2(0.5, 0.5)
+scroll_scale = Vector2(1.2, 1.2)
+repeat_size = Vector2(768, 0)
+autoscroll = Vector2(4, 0)
+repeat_times = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="Foreground/Layer"]
+modulate = Color(1, 1, 1, 0.580392)
+position = Vector2(-2, -324)
+texture = ExtResource("9_7qpwn")
+
+[node name="Layer2" type="Parallax2D" parent="Foreground"]
+scroll_scale = Vector2(1.5, 1.5)
+repeat_size = Vector2(512, 0)
+autoscroll = Vector2(3, 0)
+repeat_times = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="Foreground/Layer2"]
+modulate = Color(1, 1, 1, 0.580392)
+position = Vector2(0, -350)
+texture = ExtResource("9_7qpwn")
+
+[node name="Layer3" type="Parallax2D" parent="Foreground"]
+scroll_scale = Vector2(2, 2)
+repeat_size = Vector2(400, 0)
+autoscroll = Vector2(-20, 0)
+repeat_times = 10
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Foreground/Layer3"]
+position = Vector2(-8, -460)
+sprite_frames = ExtResource("10_ge13x")
+animation = &"flying"
+autoplay = "flying"
+flip_h = true
+
+[node name="Layer4" type="Parallax2D" parent="Foreground"]
+scroll_scale = Vector2(2, 2)
+repeat_size = Vector2(600, 0)
+autoscroll = Vector2(30, 0)
+repeat_times = 10
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Foreground/Layer4"]
+position = Vector2(169, -298)
+sprite_frames = ExtResource("10_ge13x")
+animation = &"flying"
+autoplay = "flying"

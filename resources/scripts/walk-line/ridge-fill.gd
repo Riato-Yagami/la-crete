@@ -2,7 +2,7 @@ extends Node2D
 class_name LineFill
 
 @export var line : Line2D
-var screen_height := 600 # Or get_viewport_rect().size.y
+var screen_height := 500 # Or get_viewport_rect().size.y
 @export var fill_color : Color
 
 func _draw():
@@ -18,7 +18,7 @@ func _draw():
 
 	# Add bottom corners to close the shape
 	polygon.append(Vector2(line_points[line_points.size()-1].x, screen_height))
-	polygon.append(Vector2(line_points[0].x, screen_height))
+	polygon.append(Vector2(line_points[0].x - 200, screen_height))
 
 	# Draw the polygon
 	#print(polygon)
